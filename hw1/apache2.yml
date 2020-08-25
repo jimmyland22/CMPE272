@@ -1,5 +1,12 @@
 ---
 - name: This sets up an httpd webserver
+- name: This sets up an httpd webserver
+- name: This sets up an httpd webserver
+- name: This sets up an httpd webserver
+- name: This sets up an httpd webserver
+- name: This sets up an httpd webserver
+- name: This sets up an httpd webserver
+- name: This sets up an httpd webserver
   hosts: centos1
   become: yes
   tasks:
