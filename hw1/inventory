@@ -4,4 +4,3 @@ ubuntu ansible_host=198.18.134.28 ansible_user=cisco
 centos1 ansible_host=198.18.134.49 ansible_user=root 
 centos2 ansible_host=198.18.134.50 ansible_user=root
 
-localhost ansible_host=127.0.0.1
