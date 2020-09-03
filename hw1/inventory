@@ -41,10 +41,10 @@
 # leading 0s:
 
 #db-[99:101]-node.example.com
-ubuntu ansible_host=198.18.134.28 ansible_user=cisco ansible_ssh_pass=C1sco12345
+ubuntu ansible_host=198.18.134.28 ansible_user=cisco
 
 [web]
-centos1 ansible_host=198.18.134.49 ansible_user=demouser ansible_ssh_pass=C1sco12345 ansible_become_password=C1sco12345
-centos2 ansible_host=198.18.134.50 ansible_user=demouser ansible_ssh_pass=C1sco12345
+centos1 ansible_host=198.18.134.49 ansible_user=root 
+centos2 ansible_host=198.18.134.50 ansible_user=root
 
 
