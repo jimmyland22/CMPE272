@@ -1,49 +1,28 @@
----
-- name: This sets up an httpd webserver
-  hosts: centos1
-  become: yes
-  tasks:
-  - name: Install apache packages 
-    yum:
-      name: httpd
-      state: present
-  - name: ensure httpd is running
-    service:
-      name: httpd 
-      state: started
-  - name: Open port 80 for http access
-    firewalld:
-      service: http
-      permanent: true
-      state: enabled
-  - name: Restart firewalld
-    service:
-      name: firewalld
-      state: restarted
-
-
 - name: Setting up the web server
-  hosts: centos2
+  hosts: web
   tasks:
           - name: Install Apache
             yum:
                     name: httpd
                     state: present
-          - name: ensure the service is running
-            service:
-                    name: httpd
-                    state: started
           - name: Modify Apache to listen on 8080
             lineinfile: dest=/etc/httpd/conf/httpd.conf regexp="^Listen 80" line="Listen 8080" state=present
             notify:
                     - restart apache
+          - name: Create a blank index file
+            file:
+                    dest: /tmp/file
+                    state: touch
           - name: Modify default welcome file
             blockinfile: 
-                    path: /usr/share/httpd/noindex/index.html
+                    path: /tmp/file
                     marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
-                    insertafter: "<body>"
                     block: |
                             <h1>Welcome to {{ ansible_hostname }}</h1>
+          - name: ensure the service is running
+            service:
+                    name: httpd
+                    state: started
           - name: Open firewall for 8080
             firewalld:
                     port: 8080/tcp
@@ -53,15 +32,5 @@
             service:
                     name: firewalld
                     state: restarted
-  handlers:
-          - name: restart apache
-            service:
-                    name: httpd
-                    state: restarted
-          - name: restart firewalld
-            service:
-                    name: firewalld
-                    state: restarted
 
-                        
 
